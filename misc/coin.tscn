@@ -1,0 +1,100 @@
+[gd_scene load_steps=8 format=3 uid="uid://bs3k84vv2slv"]
+
+[ext_resource type="Texture2D" uid="uid://bq4cdu05gp5aj" path="res://assets/rpgmaker/MV/characters/$_srw_free_coin.png" id="1_4crx4"]
+[ext_resource type="Script" path="res://misc/coin.gd" id="1_otmev"]
+[ext_resource type="Texture2D" uid="uid://m23mxefo8f4e" path="res://assets/sprite/free_coin.png" id="3_7418h"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7kd5x"]
+radius = 6.0
+
+[sub_resource type="Animation" id="Animation_y3awx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_vmric"]
+resource_name = "spin"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -5), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rg0e2"]
+_data = {
+"RESET": SubResource("Animation_y3awx"),
+"spin": SubResource("Animation_vmric")
+}
+
+[node name="coin" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_otmev")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_7kd5x")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../coinSprite")
+autoplay = "spin"
+libraries = {
+"": SubResource("AnimationLibrary_rg0e2")
+}
+
+[node name="coinSprite" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.173)
+texture = ExtResource("1_4crx4")
+hframes = 3
+vframes = 4
+
+[node name="shadow" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.470588)
+position = Vector2(0, 7)
+scale = Vector2(0.5, 0.125)
+texture = ExtResource("3_7418h")
+hframes = 3
+vframes = 4
