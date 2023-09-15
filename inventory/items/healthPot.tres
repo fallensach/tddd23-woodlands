@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://dntq0gpskif2m"]
+
+[ext_resource type="Script" path="res://inventoryItem.gd" id="1_4w1ft"]
+[ext_resource type="Texture2D" uid="uid://cphx05mv3uhxi" path="res://assets/icons/Potion/Red Potion 3.png" id="2_sudfn"]
+
+[resource]
+script = ExtResource("1_4w1ft")
+name = "healthPot"
+texture = ExtResource("2_sudfn")
+description = "A health potion that restores 50 hp"

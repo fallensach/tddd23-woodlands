@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6mhlg3kf0ee7"]
+
+[ext_resource type="Texture2D" uid="uid://b2fhnwvtq4d2f" path="res://assets/icons/Misc/Gear.png" id="1_q8v0v"]
+
+[node name="item" type="Panel"]
+self_modulate = Color(1, 1, 1, 0)
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="itemSprite" type="Sprite2D" parent="."]
+position = Vector2(20, 20)
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("1_q8v0v")

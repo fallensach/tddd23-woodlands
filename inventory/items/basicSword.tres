@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://be8oqyknjt14q"]
+
+[ext_resource type="Script" path="res://inventoryItem.gd" id="1_5s0f4"]
+[ext_resource type="Texture2D" uid="uid://dsw1c3rhdbc1j" path="res://assets/icons/Weapon & Tool/Wooden Sword.png" id="2_p5jny"]
+
+[resource]
+script = ExtResource("1_5s0f4")
+name = "basicSword"
+texture = ExtResource("2_p5jny")
+description = "A basic wooden sword made for new adventurers"

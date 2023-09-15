@@ -1,13 +1,116 @@
-[gd_scene format=3 uid="uid://buacwu6tyn4qx"]
+[gd_scene load_steps=4 format=3 uid="uid://buacwu6tyn4qx"]
 
-[node name="inventory" type="CanvasLayer"]
+[ext_resource type="Script" path="res://gui/inventory.gd" id="1_2mpun"]
+[ext_resource type="Texture2D" uid="uid://b61x1e81673gl" path="res://assets/inventory/InventoryRect.png" id="1_xmsoa"]
+[ext_resource type="PackedScene" uid="uid://df26v46202g0x" path="res://gui/slot.tscn" id="2_s666q"]
 
-[node name="Control" type="MarginContainer" parent="."]
+[node name="inventory" type="Control"]
+visible = false
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -841.0
+offset_bottom = -437.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_2mpun")
 
-[node name="ItemList" type="ItemList" parent="Control"]
+[node name="invSprite" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_right = 153.0
+offset_bottom = 104.0
+scale = Vector2(2.03, 2.03)
+texture = ExtResource("1_xmsoa")
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+
+[node name="inventorySlots" type="GridContainer" parent="invSprite"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -70.0
+offset_top = -46.0
+offset_right = 70.0
+offset_bottom = 46.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 6
+
+[node name="slot" parent="invSprite/inventorySlots" instance=ExtResource("2_s666q")]
+layout_mode = 2
+
+[node name="slot2" parent="invSprite/inventorySlots" instance=ExtResource("2_s666q")]
+layout_mode = 2
+
+[node name="slot3" parent="invSprite/inventorySlots" instance=ExtResource("2_s666q")]
+layout_mode = 2
+
+[node name="slot4" parent="invSprite/inventorySlots" instance=ExtResource("2_s666q")]
+layout_mode = 2
+
+[node name="slot5" parent="invSprite/inventorySlots" instance=ExtResource("2_s666q")]
+layout_mode = 2
+
+[node name="slot6" parent="invSprite/inventorySlots" instance=ExtResource("2_s666q")]
+layout_mode = 2
+
+[node name="slot7" parent="invSprite/inventorySlots" instance=ExtResource("2_s666q")]
+layout_mode = 2
+
+[node name="slot8" parent="invSprite/inventorySlots" instance=ExtResource("2_s666q")]
+layout_mode = 2
+
+[node name="slot9" parent="invSprite/inventorySlots" instance=ExtResource("2_s666q")]
+layout_mode = 2
+
+[node name="slot10" parent="invSprite/inventorySlots" instance=ExtResource("2_s666q")]
+layout_mode = 2
+
+[node name="slot11" parent="invSprite/inventorySlots" instance=ExtResource("2_s666q")]
+layout_mode = 2
+
+[node name="slot12" parent="invSprite/inventorySlots" instance=ExtResource("2_s666q")]
+layout_mode = 2
+
+[node name="slot13" parent="invSprite/inventorySlots" instance=ExtResource("2_s666q")]
+layout_mode = 2
+
+[node name="slot14" parent="invSprite/inventorySlots" instance=ExtResource("2_s666q")]
+layout_mode = 2
+
+[node name="slot15" parent="invSprite/inventorySlots" instance=ExtResource("2_s666q")]
+layout_mode = 2
+
+[node name="slot16" parent="invSprite/inventorySlots" instance=ExtResource("2_s666q")]
+layout_mode = 2
+
+[node name="slot17" parent="invSprite/inventorySlots" instance=ExtResource("2_s666q")]
+layout_mode = 2
+
+[node name="slot18" parent="invSprite/inventorySlots" instance=ExtResource("2_s666q")]
+layout_mode = 2
+
+[node name="slot19" parent="invSprite/inventorySlots" instance=ExtResource("2_s666q")]
+layout_mode = 2
+
+[node name="slot20" parent="invSprite/inventorySlots" instance=ExtResource("2_s666q")]
+layout_mode = 2
+
+[node name="slot21" parent="invSprite/inventorySlots" instance=ExtResource("2_s666q")]
+layout_mode = 2
+
+[node name="slot22" parent="invSprite/inventorySlots" instance=ExtResource("2_s666q")]
+layout_mode = 2
+
+[node name="slot23" parent="invSprite/inventorySlots" instance=ExtResource("2_s666q")]
+layout_mode = 2
+
+[node name="slot24" parent="invSprite/inventorySlots" instance=ExtResource("2_s666q")]
 layout_mode = 2

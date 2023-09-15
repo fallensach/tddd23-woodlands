@@ -5,6 +5,7 @@ signal coins_changed(coins)
 signal exp_changed(experience)
 
 @onready var player = get_node("../player")
+@onready var inventory = $inventory
 
 var hp_regen = 0:
 	set(new_hp_regen):
@@ -86,4 +87,8 @@ func _on_level_up(new_max_exp, exp_overflow):
 	$Control/expBar.set_value(0)
 	
 func _on_inventory_pressed():
-	pass # Replace with function body.
+	inventory.handler()
+
+func _input(event):
+	if event.is_action_pressed("inventory"):
+		inventory.handler()

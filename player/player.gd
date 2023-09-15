@@ -20,6 +20,8 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var hand = $hand
 @onready var regenTimer = $healthRegenTimer
 
+@export var inventory: Inventory
+
 var directions = {
 	"side": "idleSide",
 }

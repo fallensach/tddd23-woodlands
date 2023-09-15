@@ -1,8 +1,9 @@
-[gd_scene load_steps=45 format=3 uid="uid://vf4wjyb6qblk"]
+[gd_scene load_steps=46 format=3 uid="uid://vf4wjyb6qblk"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_mh6bh"]
 [ext_resource type="Texture2D" uid="uid://bp2whqynmngkx" path="res://assets/vfx/Smoke Effect 01/VFX 1 Separated Frames/Smoke VFX A1.png" id="2_21bw3"]
 [ext_resource type="Texture2D" uid="uid://dbbbltqni57vj" path="res://assets/sprites/characters/player.png" id="2_78fag"]
+[ext_resource type="Resource" uid="uid://hlik3guy2s0q" path="res://inventory/playerInventory.tres" id="2_e3e6f"]
 [ext_resource type="Animation" uid="uid://bymgjip0qx8r" path="res://swing.res" id="2_isv7k"]
 [ext_resource type="Texture2D" uid="uid://b3yn6gx05m5ke" path="res://assets/vfx/Smoke Effect 01/VFX 1 Separated Frames/Smoke VFX A2.png" id="3_frxtl"]
 [ext_resource type="Animation" uid="uid://duuuvhrnx8mk" path="res://level_up.res" id="3_jtpwy"]
@@ -647,6 +648,7 @@ _data = {
 [node name="player" type="CharacterBody2D"]
 platform_floor_layers = 4294967294
 script = ExtResource("1_mh6bh")
+inventory = ExtResource("2_e3e6f")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.42, 1.42)
