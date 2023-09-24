@@ -646,12 +646,16 @@ _data = {
 }
 
 [node name="player" type="CharacterBody2D"]
+y_sort_enabled = true
 platform_floor_layers = 4294967294
 script = ExtResource("1_mh6bh")
 inventory = ExtResource("2_e3e6f")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.42, 1.42)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+rotation_smoothing_enabled = true
 
 [node name="characterAnim" type="AnimationPlayer" parent="."]
 autoplay = "idleSide"

@@ -1,8 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://b6scjdvxgkxlq"]
+[gd_scene load_steps=17 format=3 uid="uid://b6scjdvxgkxlq"]
 
+[ext_resource type="Script" path="res://enemies/slime.gd" id="1_4x1ky"]
 [ext_resource type="Texture2D" uid="uid://bqh17tcu4uvtu" path="res://assets/sprites/characters/slime.png" id="1_6b1am"]
-[ext_resource type="Script" path="res://enemies/slime.gd" id="1_88pod"]
 [ext_resource type="Theme" uid="uid://csdx6erprher7" path="res://gui/ingame.tres" id="3_k7o2v"]
+[ext_resource type="Script" path="res://enemies/state machine.gd" id="4_ysbna"]
+[ext_resource type="Script" path="res://enemyIdle.gd" id="5_psmm5"]
+[ext_resource type="Script" path="res://EnemyAttack.gd" id="6_1lfuh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rlfwj"]
 radius = 10.5
@@ -55,6 +58,22 @@ tracks/0/keys = {
 "values": [0, 1, 1, 2, 3]
 }
 
+[sub_resource type="Animation" id="Animation_n1gu1"]
+resource_name = "jump"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [14, 15, 16, 17, 18, 19, 20]
+}
+
 [sub_resource type="Animation" id="Animation_q8vig"]
 resource_name = "run"
 length = 0.6
@@ -71,20 +90,60 @@ tracks/0/keys = {
 "values": [7, 8, 9, 10, 11, 12]
 }
 
+[sub_resource type="Animation" id="Animation_kwgou"]
+resource_name = "windup"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [14]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bbl0y"]
 _data = {
 "RESET": SubResource("Animation_l3rkw"),
 "death": SubResource("Animation_oj8hh"),
 "idle": SubResource("Animation_j0ybm"),
-"run": SubResource("Animation_q8vig")
+"jump": SubResource("Animation_n1gu1"),
+"run": SubResource("Animation_q8vig"),
+"windup": SubResource("Animation_kwgou")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i4m2b"]
 radius = 13.0
 
-[node name="slime" type="CharacterBody2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_0qs5x"]
+radius = 137.233
+
+[node name="slime" type="CharacterBody2D" node_paths=PackedStringArray("enemy", "sprite", "health_bar", "animation_player", "damage_bar", "detection_range", "attack_cd", "attack_range")]
+z_index = 1
+y_sort_enabled = true
 platform_floor_layers = 4294967294
-script = ExtResource("1_88pod")
+script = ExtResource("1_4x1ky")
+enemy = NodePath(".")
+sprite = NodePath("Sprite2D")
+health_bar = NodePath("healthBar")
+animation_player = NodePath("AnimationPlayer")
+damage_bar = NodePath("damageTaken")
+detection_range = NodePath("detectionRange")
+attack_cd = NodePath("attackCooldown")
+attack_range = NodePath("attackRange")
+
+[node name="healthBar" type="ProgressBar" parent="."]
+offset_left = -17.0
+offset_top = -21.0
+offset_right = 80.0
+offset_bottom = -8.0
+scale = Vector2(0.365, 0.365)
+theme = ExtResource("3_k7o2v")
+show_percentage = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, -5)
@@ -112,15 +171,6 @@ shape = SubResource("CircleShape2D_i4m2b")
 
 [node name="attackCooldown" type="Timer" parent="."]
 
-[node name="healthBar" type="ProgressBar" parent="."]
-offset_left = -17.0
-offset_top = -21.0
-offset_right = 80.0
-offset_bottom = -8.0
-scale = Vector2(0.365, 0.365)
-theme = ExtResource("3_k7o2v")
-show_percentage = false
-
 [node name="damageTaken" type="Label" parent="."]
 visible = false
 modulate = Color(1, 0, 0, 1)
@@ -133,7 +183,41 @@ theme = ExtResource("3_k7o2v")
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "20"
 
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[node name="detectionRange" type="Area2D" parent="."]
+
+[node name="detectionShape" type="CollisionShape2D" parent="detectionRange"]
+shape = SubResource("CircleShape2D_0qs5x")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="dashCooldown" type="Timer" parent="."]
+one_shot = true
+
+[node name="dashTime" type="Timer" parent="."]
+one_shot = true
+
+[node name="dashWindup" type="Timer" parent="."]
+one_shot = true
+
+[node name="State" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("4_ysbna")
+initial_state = NodePath("EnemyIdle")
+
+[node name="EnemyIdle" type="Node" parent="State" node_paths=PackedStringArray("enemy")]
+script = ExtResource("5_psmm5")
+enemy = NodePath("../..")
+move_speed = 30.0
+
+[node name="EnemyAttack" type="Node" parent="State" node_paths=PackedStringArray("enemy")]
+script = ExtResource("6_1lfuh")
+enemy = NodePath("../..")
+move_speed = 30.0
+
 [connection signal="body_entered" from="attackRange" to="." method="_on_attack_range_body_entered"]
-[connection signal="body_exited" from="attackRange" to="." method="_on_attack_range_body_exited"]
 [connection signal="timeout" from="attackCooldown" to="." method="_on_attack_cooldown_timeout"]
+[connection signal="body_entered" from="detectionRange" to="." method="_on_detection_range_body_entered"]
+[connection signal="body_exited" from="detectionRange" to="." method="_on_detection_range_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="dashCooldown" to="." method="_on_dash_cooldown_timeout"]
+[connection signal="timeout" from="dashTime" to="." method="_on_dash_time_timeout"]
+[connection signal="timeout" from="dashWindup" to="." method="_on_dash_windup_timeout"]

@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 const SPEED = 150.0
+const IMMUNITY_FRAME = 0.2
 signal damaged(damage)
 signal hp_updated(hp)
 signal exp_gained(exp)
@@ -38,13 +39,14 @@ var hlt = 1
 var agi = 5
 var max_hp = (100 + (hlt * 5)) * level ** 1.03
 var hp = max_hp
-var damage = (102 + (str * 3)) + level ** 1.05
+var damage = (50 + (str * 3)) + level ** 1.05
 var max_damage = damage * 1.1
 var min_dmg = damage * 0.9
 var attack_speed = 1 / (1.05 ** agi)
 var attack_cooldown = false
 var is_alive = true
 var health_regen = 0.5
+var skill_points = 0
 
 var nearby_loot = []
 var idle = "idleFront"
@@ -54,25 +56,42 @@ var looting = false
 var level_up = false
 var dashing = false
 var dash_cd = false
+var is_damaged = false
 
 func _ready():
 	regenTimer.start(1)
 
+func _on_exp_gained(exp):
+	self.exp += exp
+	exp_gained.emit(exp)
+	try_level()
+
+func collect(collectable):
+	return inventory.insert(collectable)
+
 func player_damage():
 	return randi_range(min_dmg, max_damage)
 
-func take_damage(damage):
+func knockback(direction):
+	velocity = direction * 5
+	is_damaged = true
+	await get_tree().create_timer(IMMUNITY_FRAME).timeout
+	is_damaged = false
+	velocity = Vector2(0, 0)
+
+func take_damage(damage, direction):
 	damaged.emit(damage)
 	hp -= damage
+	knockback(direction)
 	if hp <= 0:
 		is_alive = false
 		character_animation.play("death")
 		
 	player_sprite.modulate = Color.RED
-	await get_tree().create_timer(0.1).timeout
+	await get_tree().create_timer(IMMUNITY_FRAME).timeout
 	player_sprite.modulate = Color.WHITE
 
-func attack(dir, vel, attack_type):
+func attack(vel, attack_type):
 	if !attack_cooldown:
 		weapon_animation.set_speed_scale(attack_speed**-1)
 		if !attack_type:
@@ -111,8 +130,9 @@ func get_input():
 		
 	else:
 		character_animation.play("idleSide")
- 
-	velocity = input_direction * SPEED
+		
+	if !is_damaged:
+		velocity = input_direction * SPEED
 
 func level_stats(str, agi, hlt):
 	self.str += str
@@ -124,6 +144,7 @@ func try_level():
 		exp =  abs(max_exp - exp) 
 		max_exp = roundi(1000 * 1.3**level)
 		level += 1
+		skill_points += 1
 		level_stats(1, 1, 1)
 		update_stats()
 		vfx_animation.play("level_up")
@@ -161,7 +182,7 @@ func _physics_process(delta):
 			dashing = false
 			
 		if Input.is_action_pressed("attack") or Input.is_action_pressed("attack_2"):
-			attack(dir, current_facing, Input.is_action_pressed("attack_2"))
+			attack(current_facing, Input.is_action_pressed("attack_2"))
 			is_attacking = true
 			weapon.attacking = true
 		

@@ -1,0 +1,55 @@
+[gd_scene load_steps=3 format=3 uid="uid://dcq41uwgg51tt"]
+
+[ext_resource type="Texture2D" uid="uid://b61x1e81673gl" path="res://assets/inventory/InventoryRect.png" id="1_qc8wq"]
+[ext_resource type="PackedScene" uid="uid://df26v46202g0x" path="res://gui/slot.tscn" id="2_o6bk5"]
+
+[node name="hotbar" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+self_modulate = Color(0.419608, 0.392157, 0, 1)
+layout_mode = 0
+offset_right = 152.0
+offset_bottom = 32.0
+texture = ExtResource("1_qc8wq")
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -70.0
+offset_top = -10.0
+offset_right = 70.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="slot" parent="NinePatchRect/HBoxContainer" instance=ExtResource("2_o6bk5")]
+layout_mode = 2
+
+[node name="slot2" parent="NinePatchRect/HBoxContainer" instance=ExtResource("2_o6bk5")]
+layout_mode = 2
+
+[node name="slot3" parent="NinePatchRect/HBoxContainer" instance=ExtResource("2_o6bk5")]
+layout_mode = 2
+
+[node name="slot4" parent="NinePatchRect/HBoxContainer" instance=ExtResource("2_o6bk5")]
+layout_mode = 2
+
+[node name="slot5" parent="NinePatchRect/HBoxContainer" instance=ExtResource("2_o6bk5")]
+layout_mode = 2
+
+[node name="slot6" parent="NinePatchRect/HBoxContainer" instance=ExtResource("2_o6bk5")]
+layout_mode = 2

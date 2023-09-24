@@ -29,4 +29,3 @@ frame = 92
 position = Vector2(31.5688, -31.5688)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="body_exited" from="." to="." method="_on_body_exited"]

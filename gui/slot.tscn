@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://df26v46202g0x"]
+[gd_scene load_steps=4 format=3 uid="uid://df26v46202g0x"]
 
 [ext_resource type="Texture2D" uid="uid://d30soglh5s8hp" path="res://assets/inventory/inventorySlot.png" id="1_83kf1"]
 [ext_resource type="Script" path="res://gui/slot.gd" id="1_fn76h"]
+[ext_resource type="Theme" uid="uid://csdx6erprher7" path="res://gui/ingame.tres" id="3_4tooc"]
 
 [node name="slot" type="Panel"]
 self_modulate = Color(1, 1, 1, 0)
@@ -19,9 +20,12 @@ vframes = 2
 layout_mode = 0
 offset_right = 20.0
 offset_bottom = 20.0
+theme = ExtResource("3_4tooc")
 
 [node name="Panel" type="PanelContainer" parent="itemContainer"]
 layout_mode = 2
 
 [node name="item" type="Sprite2D" parent="itemContainer/Panel"]
 scale = Vector2(0.4, 0.4)
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

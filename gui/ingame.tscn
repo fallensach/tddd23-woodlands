@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bp883xug2k8uq"]
+[gd_scene load_steps=21 format=3 uid="uid://bp883xug2k8uq"]
 
 [ext_resource type="Script" path="res://gui/ingame.gd" id="1_hkfe0"]
 [ext_resource type="Texture2D" uid="uid://uonwb5benn8k" path="res://interface/GUI/GUI_2x.png" id="1_jnujq"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://baxqynjf51stk" path="res://assets/icons/Misc/Book.png" id="5_d5rve"]
 [ext_resource type="Texture2D" uid="uid://bsnfdual5pl7b" path="res://assets/icons/Equipment/Iron Armor.png" id="5_njfcm"]
 [ext_resource type="Texture2D" uid="uid://b2fhnwvtq4d2f" path="res://assets/icons/Misc/Gear.png" id="6_ghqrs"]
+[ext_resource type="PackedScene" uid="uid://dcq41uwgg51tt" path="res://hotbar.tscn" id="9_txnye"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gmngf"]
 bg_color = Color(0.0627451, 0.054902, 0, 1)
@@ -1012,13 +1013,13 @@ layer_0/tile_data = PackedInt32Array(-65536, 65536, 4, -65535, 65536, 4, -65534,
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("3_4bkar")
-theme_override_colors/background_color = Color(0.262745, 0.152941, 0, 1)
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/background_color = Color(0.223529, 0.113725, 0, 1)
+theme_override_colors/font_readonly_color = Color(1, 1, 1, 1)
 theme_override_colors/font_placeholder_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/line_spacing = 2
 theme_override_constants/outline_size = 2
-placeholder_text = "10:56: 2211 Experience gained"
+text = "10:56: 2211 Experience gained"
 editable = false
 wrap_mode = 1
 scroll_smooth = true
@@ -1079,10 +1080,10 @@ vertical_alignment = 2
 
 [node name="healthBar" type="ProgressBar" parent="."]
 modulate = Color(0.835294, 0, 0, 1)
-offset_left = 192.0
-offset_top = 555.0
-offset_right = 448.0
-offset_bottom = 576.0
+offset_left = 477.0
+offset_top = 508.0
+offset_right = 733.0
+offset_bottom = 529.0
 tooltip_text = "Some experience"
 theme = ExtResource("3_4bkar")
 value = 20.0
@@ -1116,5 +1117,12 @@ offset_left = 15.0
 offset_top = 27.0
 offset_right = 417.0
 offset_bottom = 67.0
+
+[node name="hotbar" parent="." instance=ExtResource("9_txnye")]
+offset_left = 208.0
+offset_top = 555.0
+offset_right = -792.0
+offset_bottom = -61.0
+scale = Vector2(1.62067, 1.54525)
 
 [connection signal="pressed" from="Control/menu/inventory" to="." method="_on_inventory_pressed"]

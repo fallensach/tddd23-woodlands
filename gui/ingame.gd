@@ -6,6 +6,7 @@ signal exp_changed(experience)
 
 @onready var player = get_node("../player")
 @onready var inventory = $inventory
+@onready var character_info = $characterInfo
 
 var hp_regen = 0:
 	set(new_hp_regen):
@@ -92,3 +93,6 @@ func _on_inventory_pressed():
 func _input(event):
 	if event.is_action_pressed("inventory"):
 		inventory.handler()
+	
+	if event.is_action_pressed("gear"):
+		character_info.opener()
