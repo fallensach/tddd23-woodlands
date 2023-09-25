@@ -271,9 +271,9 @@ _data = {
 "swing_2": SubResource("Animation_akv8j")
 }
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xhhud"]
-radius = 8.0
-height = 16.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s0add"]
+radius = 6.0
+height = 14.0
 
 [sub_resource type="Animation" id="Animation_ehelw"]
 length = 0.001
@@ -647,7 +647,9 @@ _data = {
 
 [node name="player" type="CharacterBody2D"]
 y_sort_enabled = true
-platform_floor_layers = 4294967294
+collision_layer = 3
+collision_mask = 5
+platform_floor_layers = 4294967289
 script = ExtResource("1_mh6bh")
 inventory = ExtResource("2_e3e6f")
 
@@ -671,11 +673,11 @@ position = Vector2(-2, 0)
 build_mode = 1
 polygon = PackedVector2Array(0, -15, 18, -13, 27, -9, 31, -1, 31, 12, 26, 17, 11, 19, -3, 19, -10, 7, -8, -14)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="hitbox" type="CollisionShape2D" parent="."]
 modulate = Color(0, 0, 0, 1)
 self_modulate = Color(0, 0, 0, 1)
-position = Vector2(1, 6)
-shape = SubResource("CapsuleShape2D_xhhud")
+position = Vector2(-0.5, 9)
+shape = SubResource("CapsuleShape2D_s0add")
 debug_color = Color(0, 0.584314, 0.792157, 0.419608)
 
 [node name="Timer" type="Timer" parent="."]

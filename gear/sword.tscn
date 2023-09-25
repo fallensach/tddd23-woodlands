@@ -7,8 +7,11 @@
 size = Vector2(8.48528, 31.2132)
 
 [node name="sword" type="Area2D"]
+y_sort_enabled = true
 position = Vector2(0, -5.355)
 rotation = -0.785398
+collision_layer = 2
+collision_mask = 4
 script = ExtResource("1_0x27w")
 
 [node name="hitBox" type="CollisionShape2D" parent="."]
